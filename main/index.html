@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>오늘의 운세</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: radial-gradient(#2b2b2b, #000000);
+      color: #fff;
+      text-align: center;
+      padding: 60px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      width: 320px;
+      margin: 20px auto;
+      padding: 40px 30px;
+      background: linear-gradient(135deg, #3b2f47, #1f1b2e);
+      border: 4px solid #bba57c;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+      font-size: 1.25em;
+      line-height: 1.6;
+      position: relative;
+      min-height: 120px;
+    }
+
+    .card::before {
+      content: "🔮";
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2em;
+    }
+
+    .card-footer {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    .input-area {
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1em;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin-left: 10px;
+      background-color: #bba57c;
+      color: #1f1b2e;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d6c08a;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔮 오늘 당신의 운명은...</h1>
+
+  <div class="input-area">
+    <input type="text" id="nameInput" placeholder="이름을 입력하세요">
+    <button onclick="showFortune()">운세 보기</button>
+  </div>
+
+  <div class="card" id="fortune"></div>
+
+  <div class="card-footer">※ 점술은 재미로만 참고하세요 ※</div>
+
+  <script>
+    const fortunes = [
+      "당신의 그림자는 오늘 진실을 비출 것입니다.",
+      "잊힌 기억 속에서 답이 나올 것입니다.",
+      "마음속 갈등이 곧 결실로 나타납니다.",
+      "뜻하지 않은 제안이 당신을 시험할 것입니다.",
+      "고요한 물속에 돌 하나가 던져질 것입니다.",
+      "낯선 사람의 말에 귀 기울이세요.",
+      "예상치 못한 재회가 당신의 운명을 뒤흔듭니다.",
+      "침묵 속에서 가장 큰 목소리를 듣게 됩니다.",
+      "빛과 어둠 사이, 당신은 선택을 마주할 것입니다.",
+      "과거의 결정을 후회하지 마세요. 모든 건 배움입니다.",
+      "오늘, 작은 행동이 큰 변화를 만듭니다.",
+      "무심한 말 한 마디가 행운을 부릅니다.",
+      "우연히 마주치는 것이 인연의 시작이 됩니다.",
+      "숨겨진 재능이 드러날 징조입니다.",
+      "감정이 격해지는 하루, 진실을 지키세요.",
+      "당신의 꿈은 메시지를 품고 있습니다. 주의 깊게 기억하세요.",
+      "어떤 문은 닫혀야만 다른 문이 열립니다.",
+      "이별은 슬픔이 아닌 시작입니다.",
+      "당신의 직감이 옳습니다. 믿으세요.",
+      "주변의 반대를 무릅쓰고, 자신의 길을 가세요.",
+      "오늘은 관찰자가 되세요. 말보다 눈이 진실을 압니다.",
+      "잃어버린 물건이 뜻밖의 장소에서 발견됩니다.",
+      "오늘은 새로운 인연이 다가오는 날입니다.",
+      "피할 수 없는 흐름에 몸을 맡기세요.",
+      "거짓이 드러나고 진실이 승리할 것입니다.",
+      "한 걸음 물러나면 길이 보입니다.",
+      "당신을 돕는 이는 가장 가까운 곳에 있습니다.",
+      "오늘은 과거를 정리하기에 좋은 날입니다.",
+      "기대하지 않았던 곳에서 답이 옵니다.",
+      "마음이 가리키는 방향이 곧 운명입니다."
+    ];
+
+    function getFortuneForName(name) {
+      const today = new Date().toDateString(); // 오늘 날짜
+      const key = name.trim().toLowerCase() + today;
+      let seed = 0;
+      for (let i = 0; i < key.length; i++) {
+        seed += key.charCodeAt(i);
+      }
+      const index = seed % fortunes.length;
+      return fortunes[index];
+    }
+
+    function showFortune() {
+      const name = document.getElementById("nameInput").value.trim();
+      const displayName = name || "손님";
+      const fortune = getFortuneForName(displayName);
+      document.getElementById("fortune").textContent = `${displayName}님, ${fortune}`;
+    }
+  </script>
+</body>
+</html>
